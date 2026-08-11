@@ -62,7 +62,7 @@ function Chainsaw.database.create(title) -- Chainsaw.database.create("users") | 
 	end
 	local unsuccess = function(error, query)
 		print('[Chainsaw] Ошибка! Таблица '.. title ..' не создана: ' .. error)
-		return true
+		return false
 	end
 	local sqlstring = 'CREATE TABLE IF NOT EXISTS '.. title .. '( id INT AUTO_INCREMENT PRIMARY KEY )'
 
@@ -79,7 +79,7 @@ function Chainsaw.database.addColumn(title, column, sqlstring) -- Chainsaw.datab
 	local unsuccess = function()
 		print('[Chainsaw] Ошибка! Колонна '.. column ..' не создана.')
 
-		return true
+		return false
 	end
 
 	MySQLite.query('ALTER TABLE '.. title ..' ADD '.. column ..' '.. sqlstring, success, unsuccess)
@@ -95,7 +95,7 @@ function Chainsaw.database.removeColumn(title, column) -- Chainsaw.database.remo
 	local unsuccess = function()
 		print('[Chainsaw] Ошибка! Колонна '.. column ..' не удалена.')
 
-		return true
+		return false
 	end
 
 	MySQLite.query('ALTER TABLE '.. title ..' DROP '.. column, success, unsuccess)
@@ -109,7 +109,7 @@ function Chainsaw.database.insertData(title, values) -- Chainsaw.database.insert
 	local unsuccess = function(error)
 		print('[Chainsaw] Ошибка! Данные не вставились: '.. error)
 
-		return true
+		return false
 	end
 
 	MySQLite.query('INSERT INTO '.. title ..' '.. Chainsaw.database.info[title].columns ..' VALUES'.. values, success, unsuccess)
@@ -123,7 +123,7 @@ function Chainsaw.database.updateData(title, column, newVar, searchName, key) --
 	local unsuccess = function(error)
 		print('[Chainsaw] Ошибка! Колонна '.. column ..' не обновлена: '.. error)
 
-		return true
+		return false
 	end
 
 	MySQLite.query('UPDATE '.. title ..' SET '.. column ..' = '.. newVar ..' WHERE '.. searchName ..' = '.. key, success, unsuccess)
@@ -139,7 +139,7 @@ function Chainsaw.database.getData(title, column, searchName, key) -- Chainsaw.d
 	local unsuccess = function(error)
 		print('[Chainsaw] Ошибка! Информация из колонны '.. column ..' не получена: '.. error)
 
-		return true
+		return false
 	end
 
 	MySQLite.query('SELECT '.. column ..' FROM '.. title ..' WHERE '.. searchName ..' = '.. key, success, unsuccess)
@@ -153,7 +153,7 @@ function Chainsaw.database.deleteData(title, column, key) -- Chainsaw.database.d
 	local unsuccess = function(error)
 		print('[Chainsaw] Ошибка! Информация колонны '.. column ..' не удалена: '.. error)
 
-		return true
+		return false
 	end
 
 	MySQLite.query('DELETE FROM '.. title ..' WHERE '.. column ..' = '.. key, success, unsuccess)
@@ -167,7 +167,7 @@ function Chainsaw.database.clearData(title) -- Chainsaw.database.clearData("user
 	local unsuccess = function(error)
 		print('[Chainsaw] Ошибка! Информация таблицы '.. title ..' не удалена: '.. error)
 
-		return true
+		return false
 	end
 
 	MySQLite.query('DELETE FROM '.. title, success, unsuccess)
