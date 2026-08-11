@@ -1,0 +1,10 @@
+"Tests"
+{
+	"base"		"base"
+    "title"		"Tests"
+    "version"	"1.0"
+    "menusystem"	"1"
+
+    "author_team"	"juztpositive"
+	"author_name"	"juztpositive"
+}
